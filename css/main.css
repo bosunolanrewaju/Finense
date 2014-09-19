@@ -1,0 +1,142 @@
+/*******************************
+	STRUCTURE
+********************************/
+body{
+	background-color: #EEE;
+}
+
+header, footer {
+	width: 100%;
+}
+
+#wrapper {
+	width: 95%;
+	margin: 0 auto;
+	background-color: rgb(250,250,250);
+	border: 1px solid rgb(150,150,150);
+	border-radius: 20px 20px 0 0;
+}
+
+#top-pane {
+	background: -webkit-linear-gradient(bottom, rgb(150,150,150), rgb(200,200,200));
+	height: 40px;
+	border-radius: 20px 20px 0 0;
+}
+
+header {
+	height: 120px;
+}
+
+aside, section {
+	float:left;
+	padding: 20px;
+}
+
+aside {
+	width: 17%;
+	margin-right: 3%;
+	height: 100%;
+}
+
+section {
+	width: 70%;
+}
+
+footer {
+	padding: 20px 0;
+	text-align: center;
+}
+
+/*Clearfix*/
+.clearfix:before,
+.clearfix:after {
+	content: "";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+
+
+
+/*******************************
+	LIST
+********************************/
+aside ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;	
+	height: 100%;
+	overflow: scroll;
+}
+
+aside ul li a{
+	color: rgb(100,100,100);
+	line-height: 1.2em;
+	display: block;
+	padding: 10px 60px 10px 10px;
+	text-decoration: none;
+	border-bottom: 1px dashed rgb(200,200,200);
+}
+
+aside ul li a:hover{
+	text-decoration: none;
+	background-color: rgb(230,230,230);
+}
+
+aside ul li:nth-child(even){
+	background-color: rgb(245,245,245);
+}
+
+
+
+
+/*******************************
+	TABLE
+********************************/
+
+table {
+	width: 100%;
+	/*border-left: 1px solid rgb(200,200,240);*/
+}
+
+table, th, td {
+	padding: 0px;
+	border-top: 1px solid rgb(200,200,240);
+	border-bottom: 1px solid rgb(200,200,240);
+	border-collapse: collapse;
+}
+
+table td, table th {
+	text-align: left;
+	padding: 10px;
+	border-right: none;
+	border-left: none;
+}
+
+table thead, table th {
+	background-color: rgb(220,220,250);
+}
+
+table tr:nth-child(even) {
+	background-color: rgb(240,240,250);
+}
+
+table caption {
+	text-align: left;
+	padding: 20px 0;
+	font-size: 1.5em;
+}
+
+
+
+
+/*******************************
+	CANVAS
+********************************/
+#home_canvas {
+	width: 800px;
+	height: 400px;
+}
