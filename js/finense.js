@@ -16,6 +16,7 @@ Finense = {
 		Finense.getSymbol();
 		Finense.getMarketStatus();
 		$("#date").text(new Date().toString().substr(0, 15));
+		$("#scroll").html("<script src='http://nseapi.com/api/marquee/KM27946924'></script>");
 	},
 
 // Loads the stock symbols from a local API in json format
