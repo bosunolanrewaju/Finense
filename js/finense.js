@@ -1,6 +1,6 @@
 Finense = {
 	base1: "http://api.nse.com.ng/api",
-	base2: "http://nseapi.com/api",
+	base2: "http://nseapi.com/api/chart/",
 	public_key: "CD26022683",
 	private_key: "KM27946924",
 	sandbox: "127.0.0.1",
@@ -53,19 +53,19 @@ Finense = {
 
 // Fetches ASI data from the API
 	loadASIChart: function(){
-		$.getJSON("http://api.nse.com.ng/api/chartdata/ASI", Finense.ASIData);
+		$.getJSON(Finense.base1 + "/chartdata/ASI", Finense.ASIData);
 	},
 
 // Loads the data and calls the function to draw the chart (Callback Function)
 	ASIData: function(response){
 		console.log(response);
 		var asi = response.IndiciesData;
-		Finense.drawChart("#asi_chart", "All Share Index", "ASI", asi);
+		Finense.drawChart("#asi_chart", "All Share Index", "ASI", asi, 5);
 	},
 
 // Draw the chart to the container supplied
 // Takes container, title, name, data (array)
-	drawChart: function(container, title, name, data){
+	drawChart: function(container, title, name, data, selected){
 		$(container).highcharts('StockChart', {
 			chart: {
 				backgroundColor: 'rgba(240,240,240, 0.1)',
@@ -73,7 +73,7 @@ Finense = {
 			},
 
             rangeSelector : {
-                selected : 5,
+                selected : selected,
                 inputEnabled: $('#asi_chart').width() > 480
             },
 
@@ -93,12 +93,37 @@ Finense = {
 
 	// Gets the symbol from the list item clicked
 	getSymbol: function(){
-		$("#stock-list li a").click(function(evt){
+		$(document).on ("click", "#stock-li a", function(evt){
 			evt.preventDefault();
-			var symbol = this.attr("href");
-			console.log(symbol);
-			return symbol
+			var symbol = $(this).attr("href");
+			Finense.fetchSymbolData(symbol);
 		})
+	},
+
+	fetchSymbolData: function(symbol){
+		// http://nseapi.com/api/chart/7UP/19-05-2014/19-09-2014/asc/json/CD26022683
+		var url = Finense.base2 + symbol + "/01-01-2001/" + Finense.setTodaysDate() + "/asc/jsonp/" + Finense.public_key + "&callback=?";
+		$.getJSON(url, Finense.symbolData);
+	},
+
+	symbolData: function(response){
+		console.log(response)
+	},
+
+	setTodaysDate: function(){
+		var today = new Date();
+	    var dd = today.getDate();
+	    var mm = today.getMonth()+1; //January is 0!
+
+	    var yyyy = today.getFullYear();
+	    if(dd<10){
+	        dd='0'+dd
+	    } 
+	    if(mm<10){
+	        mm='0'+mm
+	    } 
+	    var today = dd+'-'+mm+'-'+yyyy;
+	    return today;
 	}
 }
 
