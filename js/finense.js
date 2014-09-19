@@ -14,6 +14,8 @@ Finense = {
 		Finense.getTopLosers(); 
 		Finense.loadASIChart();
 		Finense.getSymbol();
+		Finense.getMarketStatus();
+		$("#date").text(new Date().toString().substr(0, 15));
 	},
 
 // Loads the stock symbols from a local API in json format
@@ -59,7 +61,6 @@ Finense = {
 
 // Loads the data and calls the function to draw the chart (Callback Function)
 	ASIData: function(response){
-		console.log(response);
 		var asi = response.IndiciesData;
 		Finense.drawChart("#asi_chart", "All Share Index", "ASI", asi, 5);
 	},
@@ -119,6 +120,7 @@ Finense = {
 		var url = Finense.base2 + symbol + "/01-01-2001/" + Finense.setTodaysDate() + "/asc/jsonp/" + Finense.public_key + "&callback=?";
 		$.getJSON(url, function(response){
 			Finense.symbolData(symbol, response);
+			$("#chart h2").append(" (₦" + response[response.length - 1][1] + ")");
 		});
 	},
 
@@ -126,6 +128,7 @@ Finense = {
 		console.log(response)
 		Finense.drawChart("#symbol_chart", symbol, symbol, response, 1);
 	},
+
 
 	setTodaysDate: function(){
 		var today = new Date();
@@ -141,6 +144,20 @@ Finense = {
 	    } 
 	    var today = dd+'-'+mm+'-'+yyyy;
 	    return today;
+	},
+
+	// Get market status
+	getMarketStatus: function(){
+		$.getJSON(Finense.base1 + "/statistics/mktstatus", function(response){
+			console.log(response);
+			if(response[0].MktStatus === "ENDOFDAY"){
+				$("#market-status span").text("closed");
+				$("#market-status").css("background", "-webkit-linear-gradient( bottom, rgb(200,10,10), rgb(250,15,15))");
+			} else {
+				$("#market-status span").text("open");
+				$("#market-status").css("background", "-webkit-linear-gradient( bottom, rgb(10,200,10), rgb(15,250,15))");
+			}
+		})
 	}
 }
 
