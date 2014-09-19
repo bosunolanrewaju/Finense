@@ -134,5 +134,11 @@ table caption {
 
 
 /*******************************
-	CANVAS
+	CHART
 ********************************/
+#asi_chart, #symbol_chart {
+	width: 800px;
+	height: 400px;
+	border: 1px solid rgb(100,100,140);
+	background: url("../img/loading.gif") no-repeat center center;
+}

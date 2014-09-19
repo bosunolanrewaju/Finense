@@ -5,6 +5,7 @@ Finense = {
 	private_key: "KM27946924",
 	sandbox: "127.0.0.1",
 	type: "json",
+	chart:{},
 
 // initializes the functions to be available when the DOM is ready
 	init: function(){
@@ -67,28 +68,32 @@ Finense = {
 // Takes container, title, name, data (array)
 	drawChart: function(container, title, name, data, selected){
 		$(container).highcharts('StockChart', {
-			chart: {
-				backgroundColor: 'rgba(240,240,240, 0.1)',
-				borderWidth: 1
-			},
+				chart: {
+					backgroundColor: 'rgb(240,240,240)'
+				},
 
-            rangeSelector : {
-                selected : selected,
-                inputEnabled: $('#asi_chart').width() > 480
-            },
+		        loading: {
+		     		hideDuration: 1000,
+		            showDuration: 1000
+		        },
 
-            title : {
-                text : title
-            },
+	            rangeSelector : {
+	                selected : selected,
+	                inputEnabled: $('#asi_chart').width() > 480
+	            },
 
-            series : [{
-                name : name,
-                data : data,
-                tooltip: {
-                    valueDecimals: 2
-                }
-            }]
-        });
+	            title : {
+	                text : title
+	            },
+
+	            series : [{
+	                name : name,
+	                data : data,
+	                tooltip: {
+	                    valueDecimals: 2
+	                }
+	            }]
+	        });
 	},
 
 	// Gets the symbol from the list item clicked and fetches the page to render the chart
