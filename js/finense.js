@@ -15,8 +15,8 @@ Finense = {
 		Finense.loadASIChart();
 		Finense.getSymbol();
 		Finense.getMarketStatus();
+		Finense.loadMarquee();
 		$("#date").text(new Date().toString().substr(0, 15));
-		$("#scroll").html("<script src='http://nseapi.com/api/marquee/KM27946924'></script>");
 	},
 
 // Loads the stock symbols from a local API in json format
@@ -159,6 +159,20 @@ Finense = {
 				$("#market-status").css("background", "-webkit-linear-gradient( bottom, rgb(10,200,10), rgb(15,250,15))");
 			}
 		})
+	},
+
+	// market data marquee
+	loadMarquee: function(){
+		$.getJSON("http://api.nse.com.ng/api/statistics/ticker?$filter=TickerType%20%20eq%20%27EQUITIES%27", function(response){
+				$.each(response, function(i){
+					var content = "<span class='item'><span>" + response[i].SYMBOL + "</span>";
+					content += "<span>" + response[i].Value + "</span>";
+					content += "<span>" + response[i].PercChange + "%</span></span>";
+				$("#scroll div").append(content);
+				});
+				marquee($("#scroll"), $("#scroll div"));
+			}
+		);
 	}
 }
 

@@ -3,6 +3,8 @@
 ********************************/
 body{
 	background-color: #EEE;
+	font-family: Open Sans, calibri, sans-serif;
+	font-weight: 300;
 }
 
 header, footer {
@@ -150,6 +152,11 @@ table caption {
 /*******************************
 	DIV
 ********************************/
+#logo {
+	padding: 30px 40px;
+}
+
+
 #date-time, #market-status {
 	width: 15%;
 	border-top-left-radius: 20px;
@@ -157,16 +164,17 @@ table caption {
 	height: 16px;
 	display: block;
 	padding: 17px;
-	color: rgb(230,230,230);
+	color: rgb(250,250,250);
+	/*color: rgb(230,230,230);*/
 	text-shadow: 1px 1px 2px rgb(10,10,10);
 	float: left;
+	font-size: 0.9em;
 }
 
 #market-status {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 20px;
 	float: right;
-	background: -webkit-linear-gradient( bottom, rgb(200,10,10), rgb(250,15,15));
 }
 
 #market-status span {
@@ -175,4 +183,30 @@ table caption {
 	text-align: center;
 	display: block;
 	color: rgb(250,250,250);
+}
+
+#scroll {
+	overflow: hidden;
+	height: 6px;
+	width: 60%;
+	float: left;
+	padding: 14px;
+	position: relative;
+}
+
+#scroll div {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 20px;
+	width: 100%;
+	overflow: hidden;
+	position: absolute;
+	display: block;
+}
+
+#scroll div span.item{
+	float: left;
+	display: inline;
+	width: 200px;
 }
