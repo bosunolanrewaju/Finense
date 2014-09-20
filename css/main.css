@@ -219,6 +219,9 @@ table caption {
 	width: 200px;
 }
 
+#select-container {
+	display: none;
+}
 
 
 
@@ -230,6 +233,10 @@ table caption {
 @media screen and (max-width: 859px){
 	aside {
 		display: none;
+	}
+
+	#select-container {
+		display: block;
 	}
 
 	section {

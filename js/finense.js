@@ -25,6 +25,7 @@ Finense = {
 			$.each(response, function(){
 				var symbols = this;
 				$("#stock-ul").append('<li id="stock-li"><a href="' + symbols.Symbol + '">' + symbols.Symbol + '</a></li>');
+				$("#stock-select").append("<option value='"+ symbols.Symbol +"'>"+symbols.Symbol+"</option>")
 			});
 		});
 	},
