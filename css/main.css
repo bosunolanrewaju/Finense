@@ -21,6 +21,7 @@ header, footer {
 
 #top-pane {
 	background: -webkit-linear-gradient(bottom, rgb(150,150,150), rgb(200,200,200));
+	background: -moz-linear-gradient(bottom, rgb(150,150,150), rgb(200,200,200));
 	height: 50px;
 	border-radius: 20px 20px 0 0;
 }
@@ -139,8 +140,8 @@ table caption {
 	CHART
 ********************************/
 #asi_chart, #symbol_chart {
-	width: 800px;
-	height: 400px;
+	max-width: 800px;
+	height: 30vw;
 	border: 1px solid #C3D8F7;
 	background: url("../img/loading.gif") no-repeat center center;
 }
@@ -154,13 +155,19 @@ table caption {
 ********************************/
 #logo {
 	padding: 30px 40px;
+	max-width: 346px;
+}
+
+#logo img {
+	width: 100%;
 }
 
 
 #date-time, #market-status {
-	width: 15%;
+	width: 175px;
 	border-top-left-radius: 20px;
 	background: -webkit-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
+	background: -moz-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
 	height: 16px;
 	display: block;
 	padding: 17px;
@@ -175,6 +182,7 @@ table caption {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 20px;
 	float: right;
+	max-width: 12vw;
 }
 
 #market-status span {
@@ -188,9 +196,9 @@ table caption {
 #scroll {
 	overflow: hidden;
 	height: 6px;
-	width: 60%;
+	width: 50vw;
 	float: left;
-	padding: 14px;
+	padding: 14px 0;
 	position: relative;
 }
 
@@ -209,4 +217,28 @@ table caption {
 	float: left;
 	display: inline;
 	width: 200px;
+}
+
+
+
+
+
+
+/*******************************
+	MEDIA QUERIES
+********************************/
+@media screen and (max-width: 859px){
+	aside {
+		display: none;
+	}
+
+	section {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 790px){
+	#scroll {
+		display: none;
+	}
 }
