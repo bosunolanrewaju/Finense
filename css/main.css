@@ -26,10 +26,6 @@ header, footer {
 	border-radius: 20px 20px 0 0;
 }
 
-header {
-	height: 120px;
-}
-
 aside, section {
 	float:left;
 	padding: 20px;
@@ -196,7 +192,7 @@ table caption {
 #scroll {
 	overflow: hidden;
 	height: 6px;
-	width: 50vw;
+	width: 45vw;
 	float: left;
 	padding: 14px 0;
 	position: relative;
@@ -221,8 +217,16 @@ table caption {
 
 #select-container {
 	display: none;
+	text-align: center;
 }
 
+
+#stock-select {	
+	width: 80%;
+	padding: 10px;
+	margin: 10px auto;
+	font-size: 1.2em;
+}
 
 
 
@@ -247,5 +251,9 @@ table caption {
 @media screen and (max-width: 790px){
 	#scroll {
 		display: none;
+	}
+
+	#logo {
+		margin: 1vw auto;
 	}
 }

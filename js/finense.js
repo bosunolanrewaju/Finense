@@ -13,7 +13,8 @@ Finense = {
 		Finense.getTopGainers(); 
 		Finense.getTopLosers(); 
 		Finense.loadASIChart();
-		Finense.getSymbol();
+		Finense.getSymbolList();
+		Finense.getSymbolSelect();
 		Finense.getMarketStatus();
 		Finense.loadMarquee();
 		$("#date").text(new Date().toString().substr(0, 15));
@@ -100,25 +101,37 @@ Finense = {
 	},
 
 	// Gets the symbol from the list item clicked and fetches the page to render the chart
-	getSymbol: function(){
+	getSymbolList: function(){
 		$(document).on ("click", "#stock-li a", function(evt){
 			evt.preventDefault();
 			var symbol = $(this).attr("href");
-
-			$.get("stock.html", {symbol: symbol}, function(response){
-				Finense.getTopGainers();
-				Finense.getTopLosers();
-				$("section").html(response);
-
-				$("#chart h2").text(symbol);
-			})
-
+			Finense.getStockPage(symbol);
 			Finense.fetchSymbolData(symbol);
 		})
 	},
 
+
+	// Gets the symbol from the list item clicked and fetches the page to render the chart
+	getSymbolSelect: function(){
+		$(document).on ("change", "#stock-select", function(evt){
+			var symbol = $("#stock-select option:selected").attr("value");
+			if(symbol !== "0"){
+				Finense.getStockPage(symbol);
+			}
+			Finense.fetchSymbolData(symbol);
+		})
+	},
+
+	getStockPage: function(symbol){		
+		$.get("stock.html", {symbol: symbol}, function(response){
+			Finense.getTopGainers();
+			Finense.getTopLosers();
+			$("section").html(response);
+			$("#chart h2").text(symbol);
+		})
+	},
+
 	fetchSymbolData: function(symbol){
-		// http://nseapi.com/api/chart/7UP/19-05-2014/19-09-2014/asc/json/CD26022683
 		var url = Finense.base2 + symbol + "/01-01-2001/" + Finense.setTodaysDate() + "/asc/jsonp/" + Finense.public_key + "&callback=?";
 		$.getJSON(url, function(response){
 			Finense.symbolData(symbol, response);
