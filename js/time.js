@@ -5,7 +5,7 @@ function startTime() {
     var s=today.getSeconds();
     m = checkTime(m);
     s = checkTime(s);
-    $('#time').html(" - " + h + ":" + m + ":" + s);
+    $('#time').html(" " + h + ":" + m + ":" + s);
     var t = setTimeout(function(){startTime()},500);
 }
 
@@ -16,7 +16,11 @@ function checkTime(i) {
 
 
 function marquee(a, b) {
-    var width = b.width();
+    var width = 0;
+    b.children().each(function(){
+        width += $(this).width();
+    });
+    // var width = b.width();
     var start_pos = a.width();
     var end_pos = -width;
 
@@ -27,7 +31,7 @@ function marquee(a, b) {
         }
         else {
             time = (parseInt(b.position().left, 10) - end_pos) *
-                (10000 / (start_pos - end_pos)); // Increase or decrease speed by changing value 10000
+                (1000000 / (start_pos - end_pos)); // Increase or decrease speed by changing value 10000
             b.animate({
                 'left': -width
             }, time, 'linear', function() {

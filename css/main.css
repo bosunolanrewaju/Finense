@@ -168,31 +168,36 @@ table caption {
 
 
 #date-time, #market-status {
-	width: 175px;
+	max-width: 25%;
 	border-top-left-radius: 20px;
 	background: -webkit-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
 	background: -moz-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
-	height: 16px;
+	height: 100%;
 	display: block;
-	padding: 17px;
 	color: rgb(250,250,250);
 	/*color: rgb(230,230,230);*/
 	text-shadow: 1px 1px 2px rgb(10,10,10);
 	float: left;
 	font-size: 0.9em;
+	text-align: center;
+	min-width: 106px;
+}
+
+#date {
+	padding: 3% 10%;
+	display: block;
 }
 
 #market-status {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 20px;
 	float: right;
-	max-width: 12vw;
+	width: 15%;
 }
 
 #market-status span {
-	font-size: 1.5em;
+	font-size: 1.3em;
 	text-transform: uppercase;
-	text-align: center;
 	display: block;
 	color: rgb(250,250,250);
 }
@@ -200,27 +205,33 @@ table caption {
 #scroll {
 	overflow: hidden;
 	height: 6px;
-	width: 45vw;
+	width: 50%;
 	float: left;
-	padding: 14px 0;
+	padding: 14px 10px;
 	position: relative;
+	min-width: 25%;
 }
 
-#scroll div {
+#scroll ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	height: 20px;
+	/*height: 20px;*/
 	width: 100%;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	position: absolute;
 	display: block;
 }
 
-#scroll div span.item{
+#scroll ul li{
 	float: left;
 	display: inline;
-	width: 200px;
+	/*width: 200px;*/
+}
+
+
+#scroll ul li span{
+	padding: 0 3px;
 }
 
 #select-container {
@@ -258,7 +269,7 @@ table caption {
 
 @media screen and (max-width: 790px){
 	#scroll {
-		display: none;
+		/*display: none;*/
 	}
 
 	#logo {

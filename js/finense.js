@@ -17,7 +17,7 @@ Finense = {
 		Finense.getSymbolSelect();
 		Finense.getMarketStatus();
 		Finense.loadMarquee();
-		$("#date").text(new Date().toString().substr(0, 15));
+		$("#date").html(new Date().toString().substr(0, 15) + "<span id='time'></span>");
 	},
 
 // Loads the stock symbols from a local API in json format
@@ -179,14 +179,13 @@ Finense = {
 	loadMarquee: function(){
 		$.getJSON(Finense.base1 + "/statistics/ticker", { $filter: "TickerType eq 'EQUITIES'"}, function(response){
 				$.each(response, function(i){
-					var content = "<span class='item'><span>" + response[i].SYMBOL + "</span>";
+					var content = "<li><span>" + response[i].SYMBOL + "</span>";
 					content += "<span>" + response[i].Value + "</span>";
-					content += "<span>" + response[i].PercChange + "%</span></span>";
-				$("#scroll div").append(content);
+					content += "<span>" + response[i].PercChange + "%</span></li>";
+				$("#scroll ul").append(content);
 				});
-				marquee($("#scroll"), $("#scroll div"));
-			}
-		);
+				marquee($("#scroll"), $("#scroll ul"));
+			});
 	},
 
 	getStockDetails: function(symbol){
