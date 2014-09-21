@@ -177,15 +177,17 @@ Finense = {
 
 	// market data marquee
 	loadMarquee: function(){
+		// Finense.base1 + "/statistics/ticker"
 		$.getJSON(Finense.base1 + "/statistics/ticker", { $filter: "TickerType eq 'EQUITIES'"}, function(response){
 				$.each(response, function(i){
-					var content = "<li><span>" + response[i].SYMBOL + "</span>";
-					content += "<span>" + response[i].Value + "</span>";
-					content += "<span>" + response[i].PercChange + "%</span></li>";
-				$("#scroll ul").append(content);
+					var content = response[i].SYMBOL + " ";
+					content += response[i].Value + " ";
+					content += response[i].PercChange + "% | ";
+				$("#scroll marquee").append(content);
 				});
-				marquee($("#scroll"), $("#scroll ul"));
+				// marquee($("#scroll"), $("#scroll ul"));
 			});
+		Finense.setMarqueewidth();
 	},
 
 	getStockDetails: function(symbol){
@@ -225,6 +227,13 @@ Finense = {
 		} else {
 			return "N/A";
 		}
+	},
+
+	setMarqueewidth: function(){
+		var containerWidth = $("#wrapper").width();
+		var marqueeWidth = containerWidth - ($("#date-time").width() + $("#market-status").width());
+			marqueeWidth = ((marqueeWidth - 30) / containerWidth) * 100
+			$("#scroll").css("width", marqueeWidth + "%");
 	}
 }
 

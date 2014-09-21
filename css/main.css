@@ -168,7 +168,7 @@ table caption {
 
 
 #date-time, #market-status {
-	max-width: 25%;
+	width: 20%;
 	border-top-left-radius: 20px;
 	background: -webkit-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
 	background: -moz-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
@@ -205,33 +205,11 @@ table caption {
 #scroll {
 	overflow: hidden;
 	height: 6px;
-	width: 50%;
+	width: 47vw;
 	float: left;
 	padding: 14px 10px;
 	position: relative;
 	min-width: 25%;
-}
-
-#scroll ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	/*height: 20px;*/
-	width: 100%;
-	/*overflow: hidden;*/
-	position: absolute;
-	display: block;
-}
-
-#scroll ul li{
-	float: left;
-	display: inline;
-	/*width: 200px;*/
-}
-
-
-#scroll ul li span{
-	padding: 0 3px;
 }
 
 #select-container {
