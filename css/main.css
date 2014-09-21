@@ -129,6 +129,14 @@ table caption {
 	font-size: 1.5em;
 }
 
+#profile tr td:first-child {
+	font-weight: bold;
+}
+
+#profile tr td:last-child {
+	padding-left: 20px;
+}
+
 
 
 

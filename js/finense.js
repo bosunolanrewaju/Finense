@@ -140,8 +140,8 @@ Finense = {
 	},
 
 	symbolData: function(symbol, response){
-		console.log(response)
 		Finense.drawChart("#symbol_chart", symbol, symbol, response, 1);
+		Finense.getStockDetails(symbol);
 	},
 
 
@@ -177,7 +177,7 @@ Finense = {
 
 	// market data marquee
 	loadMarquee: function(){
-		$.getJSON("http://api.nse.com.ng/api/statistics/ticker?$filter=TickerType%20%20eq%20%27EQUITIES%27", function(response){
+		$.getJSON(Finense.base1 + "/statistics/ticker", { $filter: "TickerType eq 'EQUITIES'"}, function(response){
 				$.each(response, function(i){
 					var content = "<span class='item'><span>" + response[i].SYMBOL + "</span>";
 					content += "<span>" + response[i].Value + "</span>";
@@ -187,6 +187,45 @@ Finense = {
 				marquee($("#scroll"), $("#scroll div"));
 			}
 		);
+	},
+
+	getStockDetails: function(symbol){
+		$.getJSON(Finense.base1 + "/issuers/companydirectory", {$filter: "Symbol eq '"+symbol+"'"}, function(response){
+				console.log(response[0]);
+				if(response[0] !== undefined){
+					if(response[0].StockPricePercChange > 0){
+						$("#chart h2").append("<img src='img/up-arrow.png' alt='' /> " + response[0].StockPricePercChange + "%");
+					} else if(response[0].StockPricePercChange < 0){
+						$("#chart h2").append(" <img src='img/down-arrow.png' alt='' /> " + response[0].StockPricePercChange + "%");
+					} else {
+						$("#chart h2").append(" -- " + response[0].StockPricePercChange + "%");
+					}
+					$("#chart h2").append(" - " + Finense.nullParser(response[0].CompanyName));
+					Finense.populateProfile(symbol, response);
+				}
+		})
+	},
+
+	populateProfile: function(symbol, response){
+		$("#profile tr:first-child").append("<td>" + Finense.nullParser(response[0].CompanyName) + "</td>").next()
+									.append("<td>" + symbol + "</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].Sector) + " (" + Finense.nullParser(response[0].SubSector) + ")</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].CompanyAddress) + "</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].Telephone) + " (" + Finense.nullParser(response[0].Fax) + ")</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].Email) + "</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].Website) + "</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].Auditor) + "</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].Registrars) + "</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].DateListed).substr(0, 10) + "</td>").next()
+									.append("<td>" + Finense.nullParser(response[0].BoardOfDirectors) + "</td>")
+	},
+
+	nullParser: function(value){
+		if(value !== null){
+			return value;
+		} else {
+			return "N/A";
+		}
 	}
 }
 
