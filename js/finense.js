@@ -100,8 +100,8 @@ Finense = {
 		$(document).on ("click", "#stock-li a", function(evt){
 			evt.preventDefault();
 			var symbol = $(this).attr("href");
-			Finense.getStockPage(symbol);
 			Finense.getStockDetails(symbol);
+			Finense.getStockPage(symbol);
 		})
 	},
 
@@ -111,16 +111,14 @@ Finense = {
 		$(document).on ("change", "#stock-select", function(evt){
 			var symbol = $("#stock-select option:selected").attr("value");
 			if(symbol !== "0"){
+				Finense.getStockDetails(symbol);
 				Finense.getStockPage(symbol);
 			}
-			Finense.getStockDetails(symbol);
 		})
 	},
 
 	getStockPage: function(symbol){		
 		$.get("stock.html", {symbol: symbol}, function(response){
-			Finense.getTopGainers();
-			Finense.getTopLosers();
 			$("section").html(response);
 			$("#chart h2").text(symbol);
 		})
