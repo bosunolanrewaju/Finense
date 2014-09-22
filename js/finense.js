@@ -100,8 +100,8 @@ Finense = {
 		$(document).on ("click", "#stock-li a", function(evt){
 			evt.preventDefault();
 			var symbol = $(this).attr("href");
-			Finense.getStockDetails(symbol);
 			Finense.getStockPage(symbol);
+			Finense.getStockDetails(symbol);
 		})
 	},
 
@@ -111,8 +111,8 @@ Finense = {
 		$(document).on ("change", "#stock-select", function(evt){
 			var symbol = $("#stock-select option:selected").attr("value");
 			if(symbol !== "0"){
-				Finense.getStockDetails(symbol);
 				Finense.getStockPage(symbol);
+				Finense.getStockDetails(symbol);
 			}
 		})
 	},
