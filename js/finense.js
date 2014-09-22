@@ -18,7 +18,6 @@ Finense = {
 		Finense.getMarketStatus();
 		Finense.loadMarquee();
 		$("#date").html(new Date().toString().substr(0, 15) + "<span id='time'></span>");
-		$(document).on("click", "button", Finense.getPdf);
 	},
 
 // Loads the stock symbols from a local API in json format
@@ -107,8 +106,6 @@ Finense = {
 			evt.preventDefault();
 			var symbol = $(this).attr("href");
 			Finense.getStockPage(symbol);
-
-			Finense.fetchSymbolData(symbol);
 		})
 	},
 
@@ -120,7 +117,6 @@ Finense = {
 			if(symbol !== "0"){
 				Finense.getStockPage(symbol);
 			}
-			Finense.fetchSymbolData(symbol);
 		})
 	},
 
@@ -129,21 +125,20 @@ Finense = {
 			$("section").html(response);
 			$("#chart h2").text(symbol);
 		}).done(
-			Finense.getStockDetails(symbol)
+			setTimeout(function(){Finense.getStockDetails(symbol)}, 1000)
 		)
 	},
 
-	fetchSymbolData: function(symbol){
-		var url = Finense.base2 + symbol + "/01-01-2001/" + Finense.setTodaysDate() + "/asc/jsonp/" + Finense.public_key + "&callback=?";
+	fetchSymbolData: function(symbol, symbolChart){
+		var url = Finense.base1 + "/stockchartdata/" + symbolChart ;
 		$.getJSON(url, function(response){
 			Finense.symbolData(symbol, response);
-			$("#chart h2").append(" (₦" + response[response.length - 1][1] + ")");
 		});
 	},
 
 	symbolData: function(symbol, response){
 		Finense.drawChart("#symbol_chart", symbol, symbol, response, 1);
-		Finense.getStockDetails(symbol);
+		// Finense.getStockDetails(symbol);
 	},
 
 
@@ -176,7 +171,6 @@ Finense = {
 
 	// market data marquee
 	loadMarquee: function(){
-		// Finense.base1 + "/statistics/ticker"
 		$.getJSON(Finense.base1 + "/statistics/ticker", { $filter: "TickerType eq 'EQUITIES'"}, function(response){
 				$.each(response, function(i){
 					var content = response[i].SYMBOL + " ";
@@ -192,6 +186,7 @@ Finense = {
 		$.getJSON(Finense.base1 + "/issuers/companydirectory", {$filter: "Symbol eq '"+symbol+"'"}, function(response){
 				console.log(response[0]);
 				if(response[0] !== undefined){
+				$("#chart h2").append(" (₦" + response[0].StockPriceCur + ")");
 					if(response[0].StockPricePercChange > 0){
 						$("#chart h2").append("<img src='img/up-arrow.png' alt='' /> " + response[0].StockPricePercChange + "%");
 					} else if(response[0].StockPricePercChange < 0){
@@ -201,6 +196,7 @@ Finense = {
 					}
 					$("#chart h2").append(" - " + Finense.nullParser(response[0].CompanyName));
 					Finense.populateProfile(symbol, response);
+					Finense.fetchSymbolData(symbol, response[0].InternationSecIN)
 				}
 		})
 	},
@@ -233,11 +229,6 @@ Finense = {
 			marqueeWidth = ((marqueeWidth - 30) / containerWidth) * 100
 			$("#scroll").css("width", marqueeWidth + "%");
 
-	},
-
-	getPdf: function(){
-		console.log(window.location.href);
-		window.open("//pdfcrowd.com/url_to_pdf/?use_print_media=1", "_blank");
 	}
 }
 

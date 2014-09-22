@@ -131,6 +131,7 @@ table caption {
 
 #profile tr td:first-child {
 	font-weight: bold;
+	vertical-align: top;
 }
 
 #profile tr td:last-child {
@@ -145,7 +146,7 @@ table caption {
 ********************************/
 #asi_chart, #symbol_chart {
 	max-width: 800px;
-	height: 30vw;
+	height: 385px;
 	border: 1px solid #C3D8F7;
 	background: url("../img/loading.gif") no-repeat center center;
 }
@@ -168,7 +169,7 @@ table caption {
 
 
 #date-time, #market-status {
-	width: 20%;
+	max-width: 15%;
 	border-top-left-radius: 20px;
 	background: -webkit-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
 	background: -moz-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
@@ -180,7 +181,7 @@ table caption {
 	float: left;
 	font-size: 0.9em;
 	text-align: center;
-	min-width: 106px;
+	min-width: 148px;
 }
 
 #date {
@@ -192,7 +193,7 @@ table caption {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 20px;
 	float: right;
-	width: 15%;
+	min-width: 12%;
 }
 
 #market-status span {
@@ -231,7 +232,7 @@ table caption {
 /*******************************
 	MEDIA QUERIES
 ********************************/
-@media screen and (max-width: 859px){
+@media screen and (max-width: 875px){
 	aside {
 		display: none;
 	}
@@ -253,30 +254,31 @@ table caption {
 	#logo {
 		margin: 1vw auto;
 	}
+
+	table {
+		font-size: 0.9em;
+	}
+
 }
 
-
-
-
-
-/****************************
-	MEDIA PRINT
-*****************************/
-
-@media print {
-	aside {
+@media screen and (max-width: 440px){
+	
+	table tr td:first-child, table tr th:first-child{
 		display: none;
 	}
 
-	#scroll{
-		display: none;
+	table {
+		font-size: 0.8em;
 	}
 
-	#wrapper {
-		width: 100%;
+
+	table td, table th {
+		padding: 10px 5px;
 	}
 
-	#asi-chart, #stock-chart {
-		display: none;
+	#chart h2 {
+		text-align: center;
 	}
+
+
 }
