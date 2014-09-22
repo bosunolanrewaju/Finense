@@ -1,11 +1,5 @@
 Finense = {
 	base1: "http://api.nse.com.ng/api",
-	base2: "http://nseapi.com/api/chart/",
-	public_key: "CD26022683",
-	private_key: "KM27946924",
-	sandbox: "127.0.0.1",
-	type: "json",
-	chart:{},
 
 // initializes the functions to be available when the DOM is ready
 	init: function(){
@@ -107,7 +101,7 @@ Finense = {
 			evt.preventDefault();
 			var symbol = $(this).attr("href");
 			Finense.getStockPage(symbol);
-			Finense.fetchSymbolData(symbol);
+			Finense.getStockDetails(symbol);
 		})
 	},
 
@@ -119,7 +113,7 @@ Finense = {
 			if(symbol !== "0"){
 				Finense.getStockPage(symbol);
 			}
-			Finense.fetchSymbolData(symbol);
+			Finense.getStockDetails(symbol);
 		})
 	},
 
@@ -132,17 +126,16 @@ Finense = {
 		})
 	},
 
-	fetchSymbolData: function(symbol){
-		var url = Finense.base2 + symbol + "/01-01-2001/" + Finense.setTodaysDate() + "/asc/jsonp/" + Finense.public_key + "&callback=?";
+	fetchSymbolData: function(symbol, symbolChart){
+		var url = Finense.base1 + "/stockchartdata/" + symbolChart;
 		$.getJSON(url, function(response){
 			Finense.symbolData(symbol, response);
-			$("#chart h2").append(" (₦" + response[response.length - 1][1] + ")");
 		});
 	},
 
 	symbolData: function(symbol, response){
 		Finense.drawChart("#symbol_chart", symbol, symbol, response, 1);
-		Finense.getStockDetails(symbol);
+		// Finense.getStockDetails(symbol);
 	},
 
 
@@ -189,8 +182,9 @@ Finense = {
 
 	getStockDetails: function(symbol){
 		$.getJSON(Finense.base1 + "/issuers/companydirectory", {$filter: "Symbol eq '"+symbol+"'"}, function(response){
-				console.log(response[0]);
 				if(response[0] !== undefined){
+					Finense.fetchSymbolData(symbol, response[0].InternationSecIN);
+					$("#chart h2").append(" (₦" + response[0].StockPriceCur + ")");
 					if(response[0].StockPricePercChange > 0){
 						$("#chart h2").append("<img src='img/up-arrow.png' alt='' /> " + response[0].StockPricePercChange + "%");
 					} else if(response[0].StockPricePercChange < 0){
