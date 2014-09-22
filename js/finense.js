@@ -101,7 +101,6 @@ Finense = {
 			evt.preventDefault();
 			var symbol = $(this).attr("href");
 			Finense.getStockPage(symbol);
-			Finense.getStockDetails(symbol);
 		})
 	},
 
@@ -112,7 +111,6 @@ Finense = {
 			var symbol = $("#stock-select option:selected").attr("value");
 			if(symbol !== "0"){
 				Finense.getStockPage(symbol);
-				Finense.getStockDetails(symbol);
 			}
 		})
 	},
@@ -121,7 +119,9 @@ Finense = {
 		$.get("stock.html", {symbol: symbol}, function(response){
 			$("section").html(response);
 			$("#chart h2").text(symbol);
-		})
+		}).done(
+			Finense.getStockDetails(symbol)
+		)
 	},
 
 	fetchSymbolData: function(symbol, symbolChart){
