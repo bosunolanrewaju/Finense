@@ -254,3 +254,29 @@ table caption {
 		margin: 1vw auto;
 	}
 }
+
+
+
+
+
+/****************************
+	MEDIA PRINT
+*****************************/
+
+@media print {
+	aside {
+		display: none;
+	}
+
+	#scroll{
+		display: none;
+	}
+
+	#wrapper {
+		width: 100%;
+	}
+
+	#asi-chart, #stock-chart {
+		display: none;
+	}
+}

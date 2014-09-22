@@ -18,6 +18,7 @@ Finense = {
 		Finense.getMarketStatus();
 		Finense.loadMarquee();
 		$("#date").html(new Date().toString().substr(0, 15) + "<span id='time'></span>");
+		$(document).on("click", "button", Finense.getPdf);
 	},
 
 // Loads the stock symbols from a local API in json format
@@ -164,12 +165,9 @@ Finense = {
 	// Get market status
 	getMarketStatus: function(){
 		$.getJSON(Finense.base1 + "/statistics/mktstatus", function(response){
-			console.log(response);
 			if(response[0].MktStatus === "ENDOFDAY"){
-				$("#market-status span").text("closed");
 				$("#market-status").css("background", "-webkit-linear-gradient( bottom, rgb(200,10,10), rgb(250,15,15))");
 			} else {
-				$("#market-status span").text("open");
 				$("#market-status").css("background", "-webkit-linear-gradient( bottom, rgb(10,200,10), rgb(15,250,15))");
 			}
 		})
@@ -234,6 +232,12 @@ Finense = {
 		var marqueeWidth = containerWidth - ($("#date-time").width() + $("#market-status").width());
 			marqueeWidth = ((marqueeWidth - 30) / containerWidth) * 100
 			$("#scroll").css("width", marqueeWidth + "%");
+
+	},
+
+	getPdf: function(){
+		console.log(window.location.href);
+		window.open("//pdfcrowd.com/url_to_pdf/?use_print_media=1", "_blank");
 	}
 }
 
