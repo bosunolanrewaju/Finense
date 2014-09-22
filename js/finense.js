@@ -183,7 +183,6 @@ Finense = {
 					content += response[i].PercChange + "% | ";
 				$("#scroll marquee").append(content);
 				});
-				// marquee($("#scroll"), $("#scroll ul"));
 			});
 		Finense.setMarqueewidth();
 	},
