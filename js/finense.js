@@ -101,7 +101,7 @@ Finense = {
 			evt.preventDefault();
 			var symbol = $(this).attr("href");
 			Finense.getStockPage(symbol);
-			setTimeout(Finense.getStockDetails(symbol), 1000);
+			Finense.getStockDetails(symbol);
 		})
 	},
 
@@ -112,7 +112,7 @@ Finense = {
 			var symbol = $("#stock-select option:selected").attr("value");
 			if(symbol !== "0"){
 				Finense.getStockPage(symbol);
-				setTimeout(Finense.getStockDetails(symbol), 1000);
+				Finense.getStockDetails(symbol);
 			}
 		})
 	},
