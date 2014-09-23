@@ -1,19 +1,13 @@
 Finense = {
 	base1: "http://api.nse.com.ng/api",
-	base2: "http://nseapi.com/api/chart/",
-	public_key: "CD26022683",
-	private_key: "KM27946924",
-	sandbox: "127.0.0.1",
-	type: "json",
-	chart:{},
 
 // initializes the functions to be available when the DOM is ready
 	init: function(){
 		Finense.getStockSymbols(); 
+		Finense.getSymbolList();
 		Finense.getTopGainers(); 
 		Finense.getTopLosers(); 
 		Finense.loadASIChart();
-		Finense.getSymbolList();
 		Finense.getSymbolSelect();
 		Finense.getMarketStatus();
 		Finense.loadMarquee();
@@ -59,13 +53,10 @@ Finense = {
 
 // Fetches ASI data from the API
 	loadASIChart: function(){
-		$.getJSON(Finense.base1 + "/chartdata/ASI", Finense.ASIData);
-	},
-
-// Loads the data and calls the function to draw the chart (Callback Function)
-	ASIData: function(response){
-		var asi = response.IndiciesData;
-		Finense.drawChart("#asi_chart", "All Share Index", "ASI", asi, 5);
+		$.getJSON(Finense.base1 + "/chartdata/ASI", function(response){
+			var asi = response.IndiciesData;
+			Finense.drawChart("#asi_chart", "All Share Index", "ASI", asi, 5);
+		});
 	},
 
 // Draw the chart to the container supplied
@@ -131,15 +122,9 @@ Finense = {
 	fetchSymbolData: function(symbol, symbolChart){
 		var url = Finense.base1 + "/stockchartdata/" + symbolChart ;
 		$.getJSON(url, function(response){
-			Finense.symbolData(symbol, response);
+			Finense.drawChart("#symbol_chart", symbol, symbol, response, 1);
 		});
 	},
-
-	symbolData: function(symbol, response){
-		Finense.drawChart("#symbol_chart", symbol, symbol, response, 1);
-		// Finense.getStockDetails(symbol);
-	},
-
 
 	setTodaysDate: function(){
 		var today = new Date();
@@ -147,13 +132,13 @@ Finense = {
 	    var mm = today.getMonth()+1; //January is 0!
 
 	    var yyyy = today.getFullYear();
-	    if(dd<10){
-	        dd='0'+dd
+	    if(dd < 10){
+	        dd = '0' + dd
 	    } 
-	    if(mm<10){
-	        mm='0'+mm
+	    if(mm < 10){
+	        mm = '0' + mm
 	    } 
-	    var today = dd+'-'+mm+'-'+yyyy;
+	    var today = dd + '-' + mm + '-' + yyyy;
 	    return today;
 	},
 
@@ -201,17 +186,18 @@ Finense = {
 	},
 
 	populateProfile: function(symbol, response){
-		$("#profile tr:first-child").append("<td>" + Finense.nullParser(response[0].CompanyName) + "</td>").next()
-									.append("<td>" + symbol + "</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].Sector) + " (" + Finense.nullParser(response[0].SubSector) + ")</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].CompanyAddress) + "</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].Telephone) + " (" + Finense.nullParser(response[0].Fax) + ")</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].Email) + "</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].Website) + "</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].Auditor) + "</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].Registrars) + "</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].DateListed).substr(0, 10) + "</td>").next()
-									.append("<td>" + Finense.nullParser(response[0].BoardOfDirectors) + "</td>")
+		$("#profile tr:first-child")
+		.append("<td>" + Finense.nullParser(response[0].CompanyName) + "</td>").next()
+		.append("<td>" + symbol + "</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].Sector) + " (" + Finense.nullParser(response[0].SubSector) + ")</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].CompanyAddress) + "</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].Telephone) + " (" + Finense.nullParser(response[0].Fax) + ")</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].Email) + "</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].Website) + "</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].Auditor) + "</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].Registrars) + "</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].DateListed).substr(0, 10) + "</td>").next()
+		.append("<td>" + Finense.nullParser(response[0].BoardOfDirectors) + "</td>")
 	},
 
 	nullParser: function(value){
