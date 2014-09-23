@@ -169,7 +169,7 @@ table caption {
 
 
 #date-time, #market-status {
-	max-width: 15%;
+	max-width: 13%;
 	border-top-left-radius: 20px;
 	background: -webkit-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
 	background: -moz-linear-gradient( bottom, rgb(100,100,100), rgb(150,150,150));
@@ -193,7 +193,7 @@ table caption {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 20px;
 	float: right;
-	min-width: 12%;
+	min-width: 10%;
 }
 
 #market-status span {
@@ -263,7 +263,7 @@ table caption {
 
 @media screen and (max-width: 440px){
 	
-	table tr td:first-child, table tr th:first-child{
+	#gainers tr td:first-child, #losers tr td:first-child, #gainers tr th:first-child, #losers tr th:first-child{
 		display: none;
 	}
 

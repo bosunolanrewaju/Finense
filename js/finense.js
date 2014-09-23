@@ -124,9 +124,8 @@ Finense = {
 		$.get("stock.html", {symbol: symbol}, function(response){
 			$("section").html(response);
 			$("#chart h2").text(symbol);
-		}).done(
-			setTimeout(function(){Finense.getStockDetails(symbol)}, 1000)
-		)
+			Finense.getStockDetails(symbol)
+		})
 	},
 
 	fetchSymbolData: function(symbol, symbolChart){
