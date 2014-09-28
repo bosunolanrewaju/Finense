@@ -1,10 +1,22 @@
-<div id="chart">
-	<h2>All Share Index</h2>
-	<div id="symbol_chart" width="800" height="400">
-		
+{{api.id}}
+<section ng-hide="{{showHome===true}}">
+	<div id="chart">
+		<h2>All Share Index</h2>
+		<div id="asi_chart" width="800" height="400">
+			
+		</div>
 	</div>
-</div>
-<h2></h2>
+	<gainers-table></gainers-table>
+	<losers-table></losers-table>
+</section>
+<section ng-hide="{{showStockPage===true}}">
+	<div id="chart">
+		<h2>All Share Index</h2>
+		<div id="symbol_chart" width="800" height="400">
+			
+		</div>
+	</div>
+	<h2></h2>
 	<table id="profile">
 	<caption>Company Profile</caption>
 		<tbody>
@@ -47,3 +59,4 @@
 			</tr>
 		</tbody>
 	</table>
+</section>

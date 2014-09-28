@@ -204,10 +204,7 @@ table caption {
 }
 
 #scroll {
-	overflow: hidden;
 	height: 6px;
-	width: 47vw;
-	float: left;
 	padding: 14px 10px;
 	position: relative;
 	min-width: 25%;

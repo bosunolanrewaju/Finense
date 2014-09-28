@@ -163,7 +163,6 @@ Finense = {
 				$("#scroll marquee").append(content);
 				});
 			});
-		Finense.setMarqueewidth();
 	},
 
 	getStockDetails: function(symbol){
@@ -206,14 +205,6 @@ Finense = {
 		} else {
 			return "N/A";
 		}
-	},
-
-	setMarqueewidth: function(){
-		var containerWidth = $("#wrapper").width();
-		var marqueeWidth = containerWidth - ($("#date-time").width() + $("#market-status").width());
-			marqueeWidth = ((marqueeWidth - 30) / containerWidth) * 100
-			$("#scroll").css("width", marqueeWidth + "%");
-
 	}
 }
 
